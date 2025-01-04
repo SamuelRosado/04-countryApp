@@ -1,10 +1,27 @@
+import { CountriesModule } from './countries/countries.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+
+  {
+    path:'countries',
+    loadChildren: () => import ('./countries/countries.module').then( m => m.CountriesModule )  //LazyLoad
+  },
+
+  {
+    path:'**',
+    redirectTo: 'countries/by-country'
+  }
+
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes)
+
+  ],
+
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
